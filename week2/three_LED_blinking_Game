@@ -1,0 +1,76 @@
+/*
+  Author: Ashna Noor
+  Description: LED blinking GAME
+*/
+const int LED_RED    = 8;
+const int LED_YELLOW = 9;
+const int LED_GREEN  = 10;
+const int BUTTON_PIN = 2;
+unsigned long start = 0;
+unsigned long end = 0;
+unsigned long reactionTime;
+
+const int leds[3] = {LED_RED, LED_YELLOW, LED_GREEN};
+bool sequenceDone = false;
+
+void setup() {
+  for (int i = 0; i < 3; i++) {
+    pinMode(leds[i], OUTPUT);
+  }
+  pinMode(BUTTON_PIN, INPUT);
+  randomSeed(analogRead(A0));
+
+  Serial.begin(9600);
+  Serial.println("                                   ");
+  Serial.println("        REACTION TIME GAME         ");
+  Serial.println("                                   ");
+  Serial.println("Press the button to start...");
+}
+
+  void loop() {
+  if (digitalRead(BUTTON_PIN) == HIGH && sequenceDone==false) {
+       int NumofRuns = random(3, 10); 
+       int n=NumofRuns;
+    for (int i = 0; i <n; i++) {
+        int ledIndex = random(0, 3);
+        int duration = random(200, 1000);  
+        int gap = random(100, 500);    
+
+           digitalWrite(leds[ledIndex], HIGH);
+           delay(duration);
+           digitalWrite(leds[ledIndex], LOW);
+           delay(gap);
+    }
+           for (int i = 0; i < 3; i++) {
+           digitalWrite(leds[i], LOW);
+    }
+
+     sequenceDone = true;
+     digitalWrite(LED_GREEN, HIGH);
+     Serial.println("Green LED ON! Release the button, then press again...");
+     start = millis();
+      Serial.println(start); 
+if(digitalRead(BUTTON_PIN) == HIGH) { 
+   int duration = random(200, 1000);  
+    LED_GREEN ==HIGH;
+  delay(duration);
+  LED_GREEN ==LOW;
+   end = millis();
+     Serial.println(end); 
+} 
+   reactionTime = start - end;  
+Serial.print("Reaction time: ");
+Serial.print(reactionTime);
+Serial.println(" ms");
+delay(1000);
+    delay(1000);
+  }
+     if (digitalRead(BUTTON_PIN) == LOW) {
+       sequenceDone = false;
+  }
+}
+
+
+
+
+}

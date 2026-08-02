@@ -13,7 +13,6 @@ This project demonstrates:
 4. Variable blink speed control
 --------------------------------------------------
 */
-
 int blinkCount = 0;
 int potValue;
 int delayTime;
